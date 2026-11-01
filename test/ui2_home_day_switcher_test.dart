@@ -343,6 +343,8 @@ void main() {
     expect(find.text('70'), findsOneWidget);
     // Stored as "today" (null), which is what the day ring opens on — a
     // pinned date would hand the detail screen today's label instead.
+    await t.scrollUntilVisible(find.byType(TodayFeed), 300,
+        scrollable: find.byType(Scrollable).first);
     t.widget<TodayFeed>(find.byType(TodayFeed)).onOpen!(HeroDoor.sleep);
     await _settle(t);
     expect(t.widget<SleepDetail>(find.byType(SleepDetail)).day, isNull);
@@ -460,6 +462,8 @@ void main() {
 
     // Today, reached through the switcher, is still today: no explicit day,
     // so Sleep resolves the night the ring is drawn from.
+    await t.scrollUntilVisible(find.byType(TodayFeed), 300,
+        scrollable: find.byType(Scrollable).first);
     t.widget<TodayFeed>(find.byType(TodayFeed)).onOpen!(HeroDoor.sleep);
     await _settle(t);
     expect(t.widget<SleepDetail>(find.byType(SleepDetail)).day, isNull);

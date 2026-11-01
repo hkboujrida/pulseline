@@ -206,6 +206,8 @@ const _notComponents = {
   // Today's hero and feed: gallery cases would need a whole HomeData; both
   // are swept through the Home screen tests.
   'HeroScore', 'TodayFeed',
+  // Owns the live HR stream through AppState; LiveHrCard is the gallery case.
+  'LiveNow',
   // WHOOP MG ECG routes: the Heart Screener entry reads the database and
   // pushes; the capture screen owns a live BLE reading (a gallery case would
   // start one); the detail screen reads and deletes a reading and routes to

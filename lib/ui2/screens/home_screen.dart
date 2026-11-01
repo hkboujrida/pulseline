@@ -76,6 +76,7 @@ import 'detected_activities.dart';
 import 'day_timeline.dart' show DayTimelineScreen;
 import 'explore_grid.dart';
 import 'hero_today.dart';
+import 'live_now.dart';
 import 'overnight_vitals.dart' show OvernightLead;
 import 'metric_detail.dart';
 import 'readiness_detail.dart';
@@ -2118,8 +2119,6 @@ class _HomeScreenState extends State<HomeScreen> with RevisionReload {
         if (HeroScore.has(d))
           Column(children: [
             HeroScore(d: d, onOpen: (k) => _openHero(c, k, isToday)),
-            const SizedBox(height: S.x2),
-            TodayFeed(d: d, onOpen: (k) => _openHero(c, k, isToday)),
           ])
         else if (RingTrio.has(d))
           RingTrio(
@@ -2172,6 +2171,13 @@ class _HomeScreenState extends State<HomeScreen> with RevisionReload {
                   go(c, ReadinessDetail(day: isToday ? null : _day)),
             );
           }),
+        // Pulseline: the live heart rate and band state, under the headline,
+        // on today only, whether or not there is a readiness score yet.
+        if (isToday) Section('Right now', const LiveNow()),
+        if (HeroScore.has(d)) ...[
+          const SizedBox(height: S.x5),
+          TodayFeed(d: d, onOpen: (k) => _openHero(c, k, isToday)),
+        ],
 
         const SizedBox(height: S.x3),
         const DetectedActivitiesCard(),
