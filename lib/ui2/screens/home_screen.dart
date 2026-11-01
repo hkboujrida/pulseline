@@ -75,6 +75,8 @@ import 'coach.dart';
 import 'detected_activities.dart';
 import 'day_timeline.dart' show DayTimelineScreen;
 import 'explore_grid.dart';
+import 'hero_today.dart';
+import 'overnight_vitals.dart' show OvernightLead;
 import 'metric_detail.dart';
 import 'readiness_detail.dart';
 import 'sleep_detail.dart';
@@ -1719,6 +1721,22 @@ class _HomeScreenState extends State<HomeScreen> with RevisionReload {
   @override
   void reload() => _load();
 
+  void _openHero(BuildContext c, HeroDoor k, bool isToday) {
+    final day = isToday ? null : _day;
+    go(
+        c,
+        switch (k) {
+          HeroDoor.readiness => ReadinessDetail(day: day),
+          HeroDoor.sleep => SleepDetail(day: day),
+          HeroDoor.strain => DayStrainDetail(day: day),
+          HeroDoor.steps => day == null
+              ? const MetricDetail('steps')
+              : metricDayScreen('steps', day),
+          HeroDoor.vitals => detailScaffold(
+              c, 'Overnight vitals', [OvernightLead(day: day)]),
+        });
+  }
+
   Future<void> _load() async {
     final repo = repoOf(context);
     if (repo == null) {
@@ -2095,7 +2113,15 @@ class _HomeScreenState extends State<HomeScreen> with RevisionReload {
         // diagnostic used to go nowhere but a Firebase breadcrumb. It belongs
         // one tap away, on the Readiness screen: a wall of per-input
         // diagnostics on Home makes the app read as broken.
-        if (RingTrio.has(d))
+        // Pulseline: one headline score, then a feed of big cards. The ring
+        // trio stays only for a day with strain or sleep but no readiness.
+        if (HeroScore.has(d))
+          Column(children: [
+            HeroScore(d: d, onOpen: (k) => _openHero(c, k, isToday)),
+            const SizedBox(height: S.x2),
+            TodayFeed(d: d, onOpen: (k) => _openHero(c, k, isToday)),
+          ])
+        else if (RingTrio.has(d))
           RingTrio(
             d: d,
             onOpen: (k) => go(
@@ -2159,6 +2185,8 @@ class _HomeScreenState extends State<HomeScreen> with RevisionReload {
         // First, in the first weeks too: resting HR, steps and the night's
         // sleep are real from night one, so they lead and the "what arrives
         // when" card follows them.
+        // Kept under the feed: it also carries calories, the alarm and the
+        // written absences ("some of today's data is missing").
         Section(l?.homeAtAGlance ?? 'At a glance',
             _glance(c, d, isToday: isToday)),
         if (firstWeeks) ...[

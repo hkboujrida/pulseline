@@ -203,6 +203,9 @@ const _notComponents = {
   // Monthly report reads the database; ExploreGrid is a set of doors that
   // push screens which read it.
   'MonthlyReportScreen', 'ExploreGrid',
+  // Today's hero and feed: gallery cases would need a whole HomeData; both
+  // are swept through the Home screen tests.
+  'HeroScore', 'TodayFeed',
   // WHOOP MG ECG routes: the Heart Screener entry reads the database and
   // pushes; the capture screen owns a live BLE reading (a gallery case would
   // start one); the detail screen reads and deletes a reading and routes to

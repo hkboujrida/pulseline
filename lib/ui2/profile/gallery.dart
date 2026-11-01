@@ -47,6 +47,7 @@ import '../../models/metric.dart';
 import '../../models/activity_suggestion.dart';
 import '../screens/detected_activities.dart';
 import '../screens/overnight_vitals.dart';
+import '../screens/health_trends_hero.dart';
 import '../screens/load_forecast_card.dart';
 import '../../compute/load_forecast.dart' show buildLoadForecast;
 import '../activity/catalogue.dart';
@@ -761,6 +762,22 @@ Map<String, Widget> extraCases() => {
           DateTime(2026, 9, 20 + i):
               i % 7 == 6 ? 0.0 : (i > 34 ? 140.0 : 70.0 + (i % 3) * 15),
       }, DateTime(2026, 10, 31))),
+      // MY HEALTH HERO: two tiles with a prior month, one without, one under
+      // the seven-day floor (not drawn).
+      'health_trends': HealthTrendsHero(inputs: HealthTrendsHero.standard(
+          (key, n) => [
+                for (var i = 0; i < n; i++)
+                  key == 'recovery' && i > 50
+                      ? null
+                      : key == 'sleep' && i < 30
+                          ? null
+                          : switch (key) {
+                              'hrv' => 48.0 + (i % 7) + i / 10,
+                              'resting_hr' => 56.0 - i / 20 + (i % 3),
+                              'sleep' => 420.0 + (i % 5) * 12,
+                              _ => 60.0 + (i % 9) * 3,
+                            },
+              ])),
       'baseline_readiness': const BaselineReadinessCard(
           data: OvernightData(
               readinessZ: .9,

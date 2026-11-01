@@ -496,8 +496,6 @@ class _SleepDetailState extends State<SleepDetail> with RevisionReload {
               padding: const EdgeInsets.only(left: S.x1, bottom: S.x2),
               child: Text(sub, style: F.over.copyWith(color: p.ink3)),
             ),
-          if (widget.lead != null && !_failed)
-            widget.lead!(_d?.day ?? _day),
           ...body,
           // Not under a read error: `_d` may still be the latest night while
           // the asked-for one failed.
@@ -811,7 +809,15 @@ class _SleepDetailState extends State<SleepDetail> with RevisionReload {
       ...dayNavRow(_day ?? d.day, d.days, _goDay),
 
       // ── 1 · THE ANSWER ──
-      _answer(c, p, d, n),
+      // Pulseline's Vitals tab leads with a hero night, then readiness and
+      // vitals; the pushed Sleep screen keeps the plain answer card.
+      if (widget.lead != null) ...[
+        _hero(c, p, d, n),
+        const SizedBox(height: S.x4),
+        widget.lead!(d.day),
+        Section('Through the night', const SizedBox.shrink()),
+      ] else
+        _answer(c, p, d, n),
 
       // ── 2 · THE NIGHT ITSELF ──
       const SizedBox(height: S.x3),
@@ -892,6 +898,125 @@ class _SleepDetailState extends State<SleepDetail> with RevisionReload {
 
   /// Total sleep, when it ran, and the two ratios that qualify it. Everything
   /// here is measured; nothing is a judgement.
+  /// The Vitals tab's hero: last night as one big number in a ring against
+  /// the sleep you need, the clock window, and the night split by stage.
+  Widget _hero(BuildContext c, P p, SleepData d, Map<String, dynamic> n) {
+    final tst = n['duration_min'] as num?;
+    final need = d.need.value;
+    final from = clockOfTs(n['onset_ts'] as num?);
+    final to = clockOfTs(n['wake_ts'] as num?);
+    final eff = n['efficiency'] as num?;
+    final stages = <(String, num?, Color)>[
+      ('Deep', n['deep_min'] as num?, C.indigo),
+      ('REM', n['rem_min'] as num?, C.teal),
+      ('Light', n['light_min'] as num?, C.blueSoft),
+      ('Awake', n['awake_min'] as num?, C.orange),
+    ];
+    final total = stages.fold<num>(0, (a, e) => a + (e.$2 ?? 0));
+    final frac = tst != null && need != null && need > 0 ? tst / need : null;
+    return Column(children: [
+      SizedBox(
+        width: 220,
+        height: 220,
+        child: Stack(alignment: Alignment.center, children: [
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(colors: [
+                C.indigo.withValues(alpha: p.dark ? .32 : .18),
+                C.indigo.withValues(alpha: 0),
+              ]),
+            ),
+          ),
+          if (frac != null)
+            SizedBox(
+              width: 184,
+              height: 184,
+              child: CustomPaint(
+                painter: Ring(frac.clamp(0.0, 1.0).toDouble(), p.on(C.indigo),
+                    p.track,
+                    stroke: 9, t: animate(c, 1), solid: true),
+              ),
+            ),
+          Column(mainAxisSize: MainAxisSize.min, children: [
+            SizedBox(
+              height: 56,
+              child: FittedBox(
+                child: Text(hm(tst), style: F.n48.copyWith(color: p.ink)),
+              ),
+            ),
+            const SizedBox(height: S.x1),
+            Text(
+                need != null ? 'of ${hm(need)} needed' : 'TOTAL SLEEP',
+                style: F.over.copyWith(color: p.ink3, letterSpacing: 1.2)),
+          ]),
+        ]),
+      ),
+      if (from.isNotEmpty && to.isNotEmpty) ...[
+        const SizedBox(height: S.x2),
+        Text('$from → $to',
+            style: F.head.copyWith(color: p.ink)),
+      ],
+      if (eff != null) ...[
+        const SizedBox(height: S.x1),
+        Text('${(eff * 100).round()}% of time in bed asleep',
+            style: F.cap.copyWith(color: p.ink2)),
+      ],
+      if (total > 0) ...[
+        const SizedBox(height: S.x5),
+        Surface(
+          pad: const EdgeInsets.all(S.x4),
+          child: Column(children: [
+            ClipRRect(
+              borderRadius: R.rPill,
+              child: SizedBox(
+                height: 14,
+                child: Row(children: [
+                  for (final (_, m, col) in stages)
+                    if ((m ?? 0) > 0)
+                      Expanded(
+                        flex: ((m! / total) * 1000).round().clamp(1, 1000),
+                        child: Container(color: p.on(col)),
+                      ),
+                ]),
+              ),
+            ),
+            const SizedBox(height: S.x3),
+            Row(children: [
+              // A stage the night did not report is left out, not dashed.
+              for (final (name, m, col) in stages)
+                if (m != null)
+                Expanded(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                                color: p.on(col), shape: BoxShape.circle),
+                          ),
+                          const SizedBox(width: S.x1),
+                          Flexible(
+                            child: Text(name,
+                                style: F.over.copyWith(color: p.ink3),
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ]),
+                        const SizedBox(height: 2),
+                        Text(hm(m),
+                            style: F.cap.copyWith(
+                                color: p.ink, fontWeight: FontWeight.w600)),
+                      ]),
+                ),
+            ]),
+          ]),
+        ),
+      ],
+    ]);
+  }
+
   Widget _answer(BuildContext c, P p, SleepData d, Map<String, dynamic> n) {
     final l = AppLocalizations.of(c);
     final tst = n['duration_min'] as num?;

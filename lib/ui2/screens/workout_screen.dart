@@ -166,6 +166,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> with RevisionReload {
     final p = P.of(c);
     final loc = AppLocalizations.of(c);
     return [
+      _weekHero(c, p, d),
+      const SizedBox(height: S.x4),
       StartCard(
         label: loc?.workoutStartSessionLabel ?? 'START A SESSION',
         count: allActivities.length,
@@ -191,6 +193,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> with RevisionReload {
           ],
         ],
       ),
+      const Section('Next 7 days', LoadForecastCard()),
       // Steps and food, which used to be a Home tile and a tab of their own.
       // Doors, not cards: the numbers live one tap down.
       Section(
@@ -224,52 +227,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> with RevisionReload {
                 builder: (_) => const StrengthProgressScreen()))),
       ),
       Section(
-        loc?.workoutThisWeek ?? 'This week',
-        Surface(
-          child: Row(
-            children: List.generate(7, (i) {
-              final days = [
-                loc?.workoutWeekdayLetterMon ?? 'M',
-                loc?.workoutWeekdayLetterTue ?? 'T',
-                loc?.workoutWeekdayLetterWed ?? 'W',
-                loc?.workoutWeekdayLetterThu ?? 'T',
-                loc?.workoutWeekdayLetterFri ?? 'F',
-                loc?.workoutWeekdayLetterSat ?? 'S',
-                loc?.workoutWeekdayLetterSun ?? 'S',
-              ];
-              final today = DateTime.now().weekday - 1;
-              final done = d.weekDays.contains(i);
-              return Expanded(
-                child: Column(children: [
-                  Text(days[i], style: F.over.copyWith(color: p.ink3)),
-                  const SizedBox(height: S.x2),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: done
-                            ? p.wash(C.green, strength: 1.5)
-                            : (i == today ? p.fill(C.purple) : p.card2)),
-                    child: Icon(
-                        done
-                            ? LucideIcons.check
-                            : (i == today ? LucideIcons.play : null),
-                        size: 14,
-                        color: done ? p.on(C.green) : p.inkOnFill),
-                  ),
-                ]),
-              );
-            }),
-          ),
-        ),
-      ),
-      Section(
         loc?.workoutTrainingLoad ?? 'Training load',
         Column(children: [
           _loadCard(c, p, d),
-          const SizedBox(height: S.x3),
-          const LoadForecastCard(),
           // TS-12 — two facts and no verb, directly under the card that holds
           // one of them. Rendered only on the coincidence; there is no "all
           // clear" variant, because the quiet state is the absence of a card
@@ -297,6 +257,100 @@ class _WorkoutScreenState extends State<WorkoutScreen> with RevisionReload {
             .push(MaterialPageRoute(builder: (_) => const DayStrainDetail())),
       ),
     ];
+  }
+
+  /// Pulseline's Activity hero: the week in one number, the seven days as
+  /// dots, and the form word from fitness − fatigue.
+  Widget _weekHero(BuildContext c, P p, _WorkoutData d) {
+    final loc = AppLocalizations.of(c);
+    final tsb = d.load?.tsb;
+    final (String formWord, Color formCol) = tsb == null
+        ? ('Building your baseline', C.blue)
+        : tsb > 5
+            ? ('Fresh', C.green)
+            : tsb >= -10
+                ? ('Balanced', C.teal)
+                : ('Carrying fatigue', C.orange);
+    final letters = [
+      loc?.workoutWeekdayLetterMon ?? 'M',
+      loc?.workoutWeekdayLetterTue ?? 'T',
+      loc?.workoutWeekdayLetterWed ?? 'W',
+      loc?.workoutWeekdayLetterThu ?? 'T',
+      loc?.workoutWeekdayLetterFri ?? 'F',
+      loc?.workoutWeekdayLetterSat ?? 'S',
+      loc?.workoutWeekdayLetterSun ?? 'S',
+    ];
+    final today = DateTime.now().weekday - 1;
+    return Surface(
+      pad: const EdgeInsets.all(S.x5),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text('THIS WEEK',
+            style: F.over.copyWith(color: p.ink3, letterSpacing: 1.4)),
+        const SizedBox(height: S.x2),
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.end,
+          spacing: S.x3,
+          children: [
+            SizedBox(
+              height: 64,
+              child: FittedBox(
+                child: Text('${d.weekCount}',
+                    style: F.n48.copyWith(color: p.ink)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: S.x2),
+              child: Text(d.weekCount == 1 ? 'workout' : 'workouts',
+                  style: F.head.copyWith(color: p.ink2)),
+            ),
+          ],
+        ),
+        const SizedBox(height: S.x2),
+        Row(children: [
+          Container(
+            width: 10,
+            height: 10,
+            decoration:
+                BoxDecoration(color: p.on(formCol), shape: BoxShape.circle),
+          ),
+          const SizedBox(width: S.x2),
+          Flexible(
+            child: Text(
+                tsb == null
+                    ? formWord
+                    : '$formWord · form ${tsb >= 0 ? '+' : ''}${tsb.round()}',
+                style: F.body.copyWith(
+                    color: p.on(formCol), fontWeight: FontWeight.w600)),
+          ),
+        ]),
+        const SizedBox(height: S.x5),
+        Row(children: [
+          for (var i = 0; i < 7; i++)
+            Expanded(
+              child: Column(children: [
+                Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: d.weekDays.contains(i)
+                        ? p.fill(C.purple)
+                        : (i == today ? p.wash(C.purple) : p.card2),
+                    border: i == today
+                        ? Border.all(color: p.on(C.purple), width: 1.5)
+                        : null,
+                  ),
+                  child: d.weekDays.contains(i)
+                      ? Icon(LucideIcons.check, size: 16, color: p.inkOnFill)
+                      : null,
+                ),
+                const SizedBox(height: S.x1),
+                Text(letters[i], style: F.over.copyWith(color: p.ink3)),
+              ]),
+            ),
+        ]),
+      ]),
+    );
   }
 
   /// Kilos moved per day over the same seven slots the TRIMP chart uses.

@@ -26,7 +26,7 @@ import '../profile/profile.dart' show ProfileAvatar;
 import '../profile/wearable_numbers.dart'
     show WearableCells, kHealthWearableRows;
 import '../ui2.dart';
-import 'monthly_report.dart';
+import 'health_trends_hero.dart';
 import 'advanced.dart';
 import 'ecg.dart' show EcgEntryCard, pairedIsMaverickOf;
 import 'findings_log.dart';
@@ -155,6 +155,7 @@ class HealthData {
       'sleep',
       'stress',
       'resp_rate',
+      'recovery', // My Health's trend tiles
     ]) {
       charts[k] = pointsOf(await repo.getChart(k));
     }
@@ -890,6 +891,12 @@ class _HealthScreenState extends State<HealthScreen> with RevisionReload {
           );
 
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      // Pulseline: the last 30 days first, then today's detail.
+      Text('LAST 30 DAYS',
+          style: F.over.copyWith(color: p.ink3, letterSpacing: 1.4)),
+      const SizedBox(height: S.x2),
+      HealthTrendsHero(inputs: HealthTrendsHero.standard(d.spark)),
+      const SizedBox(height: S.x5),
       // WHOOP MG only: the ECG door appears once the paired band has
       // positively identified itself as an MG, and stays while it is away.
       if (pairedIsMaverickOf(c)) ...[
@@ -964,12 +971,6 @@ class _HealthScreenState extends State<HealthScreen> with RevisionReload {
                 : (l?.healthWellbeingAllSub ??
                     'Breathing, mood, the journal, habits and medication'),
             () => go(c, const WellnessScreen(initialTab: 0))),
-      ),
-      Section(
-        'Reports',
-        detailLinkRow(c, LucideIcons.calendarRange, 'Monthly report',
-            'Every average this month against last month, and the standout days',
-            () => go(c, const MonthlyReportScreen())),
       ),
 
       // THERE IS NO "BODY COMPOSITION" SECTION, AND THE NEXT PERSON SHOULD NOT

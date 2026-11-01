@@ -15,6 +15,7 @@ import 'package:openstrap_edge/data/local_repository.dart';
 import 'package:openstrap_edge/l10n/app_localizations.dart';
 import 'package:openstrap_edge/state/app_state.dart';
 import 'package:openstrap_edge/theme/theme_controller.dart';
+import 'package:openstrap_edge/ui2/screens/hero_today.dart';
 import 'package:openstrap_edge/ui2/screens/screens.dart';
 import 'package:openstrap_edge/ui2/ui2.dart';
 
@@ -342,7 +343,7 @@ void main() {
     expect(find.text('70'), findsOneWidget);
     // Stored as "today" (null), which is what the day ring opens on — a
     // pinned date would hand the detail screen today's label instead.
-    t.widget<RingTrio>(find.byType(RingTrio)).onOpen!(HomeRingKind.sleep);
+    t.widget<TodayFeed>(find.byType(TodayFeed)).onOpen!(HeroDoor.sleep);
     await _settle(t);
     expect(t.widget<SleepDetail>(find.byType(SleepDetail)).day, isNull);
   });
@@ -372,6 +373,8 @@ void main() {
     final row = find.text('Breakdown of your day');
     await t.scrollUntilVisible(row, 300,
         scrollable: find.byType(Scrollable).first);
+    await t.ensureVisible(row);
+    await _settle(t);
     await t.tap(row);
     await _settle(t);
     expect(t.widget<DayTimelineScreen>(find.byType(DayTimelineScreen)).day,
@@ -407,9 +410,12 @@ void main() {
       await t.tap(find.bySemanticsLabel('Previous day'));
       await _settle(t);
 
-      final tile = find.text(label);
-      await t.scrollUntilVisible(tile, 300,
+      // Steps also shows in the Today feed above; the glance tile is last.
+      await t.scrollUntilVisible(find.text('At a glance'), 300,
           scrollable: find.byType(Scrollable).first);
+      await t.drag(find.byType(Scrollable).first, const Offset(0, -200));
+      await _settle(t);
+      final tile = find.text(label).last;
       // A 300 px step can stop with the tile's centre just past the edge.
       await t.ensureVisible(tile);
       await _settle(t);
@@ -454,7 +460,7 @@ void main() {
 
     // Today, reached through the switcher, is still today: no explicit day,
     // so Sleep resolves the night the ring is drawn from.
-    t.widget<RingTrio>(find.byType(RingTrio)).onOpen!(HomeRingKind.sleep);
+    t.widget<TodayFeed>(find.byType(TodayFeed)).onOpen!(HeroDoor.sleep);
     await _settle(t);
     expect(t.widget<SleepDetail>(find.byType(SleepDetail)).day, isNull);
   });
@@ -537,6 +543,8 @@ void main() {
     final title = find.text('Some of this day\'s data is missing');
     await t.scrollUntilVisible(title, 300,
         scrollable: find.byType(Scrollable).first);
+    await t.ensureVisible(title);
+    await _settle(t);
     expect(title, findsOneWidget);
     expect(find.text('Some of today\'s data is missing'), findsNothing);
   });
