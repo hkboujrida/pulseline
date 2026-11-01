@@ -1,6 +1,6 @@
 // The four-tab shell.
 //
-// Today · Sleep · Activity · Health. Stable: the contents personalise, the
+// Today · Vitals · Activity · My Health. Stable: the contents personalise, the
 // mental map does not. Each domain owns an accent, so colour tells you where
 // you are before the label does. Profile is not a tab; every tab's header
 // carries the avatar into it.
@@ -21,9 +21,11 @@ import 'theme.dart';
 /// The four primary destinations, in bar order.
 enum ShellDomain {
   today('Today', LucideIcons.house, C.domHome),
-  sleep('Sleep', LucideIcons.moon, C.domSleep),
+  // `sleep` keeps its name for the routing tables in app.dart, but the tab is
+  // Vitals now: last night's sleep and the overnight vitals read together.
+  sleep('Vitals', LucideIcons.moonStar, C.domSleep),
   activity('Activity', LucideIcons.dumbbell, C.domMove),
-  health('Health', LucideIcons.heartPulse, C.domHealth);
+  health('My Health', LucideIcons.heartPulse, C.domHealth);
 
   const ShellDomain(this.label, this.icon, this.accent);
 
@@ -173,8 +175,8 @@ class _TabBar extends StatelessWidget {
     final p = P.of(c);
     return Container(
       decoration: BoxDecoration(
-        color: p.card,
-        border: Border(top: BorderSide(color: p.line)),
+        color: p.bg,
+        border: Border(top: BorderSide(color: p.line, width: .5)),
       ),
       child: SafeArea(
         top: false,
@@ -223,14 +225,14 @@ class _Tab extends StatelessWidget {
             AnimatedContainer(
               duration: motion(c, Motion.base),
               padding: EdgeInsets.symmetric(
-                horizontal: on ? S.x3 : 0,
-                vertical: S.x1,
+                horizontal: on ? S.x4 : 0,
+                vertical: S.x1 + 2,
               ),
               decoration: BoxDecoration(
                 color: on ? p.wash(domain.accent) : const Color(0x00000000),
                 borderRadius: R.rPill,
               ),
-              child: Icon(domain.icon, size: 20, color: ink),
+              child: Icon(domain.icon, size: 22, color: ink),
             ),
               const SizedBox(height: 3),
               Text(

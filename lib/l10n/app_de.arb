@@ -2644,7 +2644,7 @@
     "description": "Step calibration wearing-location setting"
   },
   "tabHome": "Start",
-  "tabHealth": "Gesundheit",
+  "tabHealth": "Meine Gesundheit",
   "tabNutrition": "Ernährung",
   "tabWorkout": "Training",
   "tabWellness": "Wohlbefinden",
@@ -3246,7 +3246,7 @@
   "healthAdvancedLinkTitle": "Erweiterte Diagramme",
   "healthAdvancedLinkSub": "Schlag-zu-Schlag-Details und Schlafzeiten, für Neugierige",
   "tabToday": "Heute",
-  "tabSleep": "Schlaf",
+  "tabSleep": "Vitalwerte",
   "tabActivity": "Aktivität",
   "profileBandBattery": "Band {pct} %",
   "profileExportRow": "Export und Sicherung",

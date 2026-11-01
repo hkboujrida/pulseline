@@ -44,7 +44,9 @@ import '../grammar.dart';
 import '../revision.dart';
 import '../theme.dart';
 import '../../data/day_label.dart' show calendarDaysBetween;
+import 'load_forecast_card.dart';
 import 'log_workout.dart';
+import 'strength_progress.dart';
 import 'metric_detail.dart' show MetricDetail, detailLinkRow;
 import 'nutrition_screen.dart';
 import 'start_card.dart';
@@ -212,6 +214,16 @@ class _WorkoutScreenState extends State<WorkoutScreen> with RevisionReload {
         ]),
       ),
       Section(
+        'Strength',
+        detailLinkRow(
+            c,
+            LucideIcons.trophy,
+            'Strength progress',
+            'Records, estimated 1RM and weekly volume',
+            () => Navigator.of(c).push(MaterialPageRoute<void>(
+                builder: (_) => const StrengthProgressScreen()))),
+      ),
+      Section(
         loc?.workoutThisWeek ?? 'This week',
         Surface(
           child: Row(
@@ -256,6 +268,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> with RevisionReload {
         loc?.workoutTrainingLoad ?? 'Training load',
         Column(children: [
           _loadCard(c, p, d),
+          const SizedBox(height: S.x3),
+          const LoadForecastCard(),
           // TS-12 — two facts and no verb, directly under the card that holds
           // one of them. Rendered only on the coincidence; there is no "all
           // clear" variant, because the quiet state is the absence of a card

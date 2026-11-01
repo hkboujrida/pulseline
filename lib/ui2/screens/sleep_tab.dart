@@ -14,6 +14,7 @@ import '../profile/alarm.dart';
 import '../ui2.dart';
 import 'circadian_detail.dart';
 import 'metric_detail.dart' show detailLinkRow;
+import 'overnight_vitals.dart';
 import 'sleep_detail.dart';
 import 'wellness_screen.dart';
 
@@ -25,6 +26,10 @@ class SleepTab extends StatelessWidget {
     final l = AppLocalizations.of(c);
     return SleepDetail(
       embedded: true,
+      // The tab is Vitals: the night's readiness and vitals lead, the night's
+      // sleep follows, and the night stepper moves both.
+      embeddedTitle: l?.tabSleep ?? 'Vitals',
+      lead: (day) => OvernightLead(day: day),
       todayFooter: [
         Section(
           l?.sleepTabPlanTitle ?? 'Your sleep plan',

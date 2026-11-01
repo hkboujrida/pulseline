@@ -74,6 +74,7 @@ import 'ai_briefing.dart' show AiBriefingScreen;
 import 'coach.dart';
 import 'detected_activities.dart';
 import 'day_timeline.dart' show DayTimelineScreen;
+import 'explore_grid.dart';
 import 'metric_detail.dart';
 import 'readiness_detail.dart';
 import 'sleep_detail.dart';
@@ -2185,6 +2186,8 @@ class _HomeScreenState extends State<HomeScreen> with RevisionReload {
             l?.homeBreakdownTitle ?? 'Breakdown of your day',
             l?.homeBreakdownSubtitle ?? 'Hour by hour',
             () => go(c, DayTimelineScreen(day: _day))),
+        // The rest of the app, one tap away instead of three.
+        if (isToday) const Section('More for you', ExploreGrid()),
       ],
 
       // ── the next alarm: a door, same as the one above ──

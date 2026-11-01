@@ -195,6 +195,14 @@ void main() {
 const _notComponents = {
   // shell and routing
   'AppShell', 'Domain', 'GalleryScreen',
+  // Vitals tab lead: reads the database for the night on screen. Its two
+  // cards are gallery cases.
+  'OvernightLead',
+  // Strength progress screen and its per-lift page: read strength_set.
+  'StrengthProgressScreen', 'LiftDetail',
+  // Monthly report reads the database; ExploreGrid is a set of doors that
+  // push screens which read it.
+  'MonthlyReportScreen', 'ExploreGrid',
   // WHOOP MG ECG routes: the Heart Screener entry reads the database and
   // pushes; the capture screen owns a live BLE reading (a gallery case would
   // start one); the detail screen reads and deletes a reading and routes to

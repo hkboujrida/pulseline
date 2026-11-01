@@ -5415,6 +5415,20 @@ class LocalDb {
     });
   }
 
+  /// Every logged set with a time, oldest first — the Strength progress
+  /// screen's one read. A set with no `at_ts` takes its session's start.
+  static Future<List<Map<String, Object?>>> allStrengthSets() async {
+    final db = await instance;
+    return db.rawQuery('''
+      SELECT s.session_id, s.exercise_key, s.set_index, s.reps, s.load_kg,
+             s.rpe, COALESCE(s.at_ts, ss.start_ts) AS at_ts
+      FROM strength_set s
+      LEFT JOIN sessions ss ON ss.id = s.session_id
+      WHERE COALESCE(s.at_ts, ss.start_ts) IS NOT NULL
+      ORDER BY COALESCE(s.at_ts, ss.start_ts) ASC, s.session_id, s.seq
+    ''');
+  }
+
   static Future<List<Map<String, Object?>>> strengthSets(
     String sessionId,
   ) async {

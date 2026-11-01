@@ -46,6 +46,9 @@ import '../../compute/findings.dart';
 import '../../models/metric.dart';
 import '../../models/activity_suggestion.dart';
 import '../screens/detected_activities.dart';
+import '../screens/overnight_vitals.dart';
+import '../screens/load_forecast_card.dart';
+import '../../compute/load_forecast.dart' show buildLoadForecast;
 import '../activity/catalogue.dart';
 import '../activity/live.dart';
 import '../activity/picker.dart' show ActivityPicker, ActivityRow;
@@ -748,6 +751,63 @@ Map<String, Widget> extraCases() => {
       // helping nor holding you back — a row under "what helped" reading
       // `+0.0` is a small lie, and skin temperature is a raw ADC so its
       // NUMBERS are suppressed as well as its chart.
+      // VITALS TAB LEAD. Readiness around your own usual, and four vitals
+      // against their bands: one inside, one above, one still learning, and
+      // skin temperature as a deviation only.
+      // Four weeks of training then a hard week: form below zero, so the
+      // scenarios disagree about when it recovers.
+      'load_forecast': LoadForecastCard(data: buildLoadForecast({
+        for (var i = 0; i < 42; i++)
+          DateTime(2026, 9, 20 + i):
+              i % 7 == 6 ? 0.0 : (i > 34 ? 140.0 : 70.0 + (i % 3) * 15),
+      }, DateTime(2026, 10, 31))),
+      'baseline_readiness': const BaselineReadinessCard(
+          data: OvernightData(
+              readinessZ: .9,
+              readinessUsual: UsualRange(-.4, .6),
+              readinessNights: 41)),
+      'baseline_readiness_learning': const BaselineReadinessCard(
+          data: OvernightData(readinessZ: .2, readinessNights: 6)),
+      'overnight_vitals': const OvernightVitalsCard(
+          data: OvernightData(vitals: [
+        VitalReading(
+            key: 'resting_hr',
+            name: 'Resting heart rate',
+            icon: LucideIcons.heart,
+            color: C.red,
+            value: 54,
+            unit: 'bpm',
+            range: UsualRange(51, 57),
+            nights: 40),
+        VitalReading(
+            key: 'hrv',
+            name: 'Heart rate variability',
+            icon: LucideIcons.activity,
+            color: C.green,
+            value: 38,
+            unit: 'ms',
+            range: UsualRange(44, 62),
+            nights: 40),
+        VitalReading(
+            key: 'resp_rate',
+            name: 'Breathing rate',
+            icon: LucideIcons.wind,
+            color: C.teal,
+            value: 14.6,
+            unit: 'br/min',
+            decimals: 1,
+            nights: 9),
+        VitalReading(
+            key: 'skin_temp',
+            name: 'Skin temperature',
+            icon: LucideIcons.thermometer,
+            color: C.orange,
+            value: null,
+            unit: '',
+            z: 1.4,
+            nights: 30,
+            relativeOnly: true),
+      ])),
       'driver_breakdown': DriverBreakdown(driverFacts(
         breakdown: const [
           {

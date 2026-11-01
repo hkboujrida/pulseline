@@ -410,6 +410,9 @@ void main() {
       final tile = find.text(label);
       await t.scrollUntilVisible(tile, 300,
           scrollable: find.byType(Scrollable).first);
+      // A 300 px step can stop with the tile's centre just past the edge.
+      await t.ensureVisible(tile);
+      await _settle(t);
       await t.tap(tile);
       await _settle(t);
 

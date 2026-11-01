@@ -63,7 +63,7 @@ void main() {
     await select(tester, ShellDomain.activity);
 
     await back(tester);
-    expect(find.text('screen Health'), findsOneWidget);
+    expect(find.text('screen My Health'), findsOneWidget);
     expect(exited(), isFalse);
     await back(tester);
     expect(find.text('screen Today'), findsOneWidget);
@@ -104,7 +104,7 @@ void main() {
       await select(tester, ShellDomain.activity);
     }
     await back(tester);
-    expect(find.text('screen Health'), findsOneWidget);
+    expect(find.text('screen My Health'), findsOneWidget);
     await back(tester);
     expect(find.text('screen Today'), findsOneWidget);
     expect(exited(), isFalse);
@@ -120,7 +120,7 @@ void main() {
     await select(tester, ShellDomain.today);
     await select(tester, ShellDomain.activity);
     await back(tester);
-    expect(find.text('screen Health'), findsOneWidget);
+    expect(find.text('screen My Health'), findsOneWidget);
     await back(tester);
     expect(find.text('screen Today'), findsOneWidget);
     expect(exited(), isFalse);
@@ -135,7 +135,7 @@ void main() {
     await select(tester, ShellDomain.health);
     await select(tester, ShellDomain.today);
     await back(tester);
-    expect(find.text('screen Health'), findsOneWidget);
+    expect(find.text('screen My Health'), findsOneWidget);
     await back(tester);
     expect(find.text('screen Today'), findsOneWidget);
     expect(exited(), isFalse);
@@ -161,7 +161,7 @@ void main() {
   ) async {
     await mount(tester);
     await select(tester, ShellDomain.health);
-    final context = tester.element(find.text('screen Health'));
+    final context = tester.element(find.text('screen My Health'));
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => const Scaffold(body: Text('detail screen')),
@@ -171,7 +171,7 @@ void main() {
 
     await back(tester);
     expect(find.text('detail screen'), findsNothing);
-    expect(find.text('screen Health'), findsOneWidget);
+    expect(find.text('screen My Health'), findsOneWidget);
     expect(exited(), isFalse);
     await back(tester);
     expect(find.text('screen Today'), findsOneWidget);
@@ -181,14 +181,14 @@ void main() {
     await mount(tester);
     await select(tester, ShellDomain.health);
     showDialog<void>(
-      context: tester.element(find.text('screen Health')),
+      context: tester.element(find.text('screen My Health')),
       builder: (_) => const AlertDialog(content: Text('dialog')),
     );
     await tester.pumpAndSettle();
 
     await back(tester);
     expect(find.text('dialog'), findsNothing);
-    expect(find.text('screen Health'), findsOneWidget);
+    expect(find.text('screen My Health'), findsOneWidget);
     expect(exited(), isFalse);
     await back(tester);
     expect(find.text('screen Today'), findsOneWidget);

@@ -135,20 +135,20 @@ class P {
 
   static P of(BuildContext c) => P(Theme.of(c).brightness == Brightness.dark);
 
-  Color get bg => dark ? const Color(0xFF0B1017) : C.n50;
-  Color get card => dark ? const Color(0xFF151C26) : C.white;
-  Color get card2 => dark ? const Color(0xFF1D2632) : C.n100;
-  Color get line => dark ? const Color(0xFF232D3B) : C.n200;
-  Color get track => dark ? const Color(0xFF232D3B) : C.n200;
+  Color get bg => dark ? const Color(0xFF07090D) : const Color(0xFFF6F4F0);
+  Color get card => dark ? const Color(0xFF11151C) : C.white;
+  Color get card2 => dark ? const Color(0xFF181D26) : const Color(0xFFEFECE6);
+  Color get line => dark ? const Color(0xFF1E242E) : const Color(0xFFE6E2DA);
+  Color get track => dark ? const Color(0xFF232A35) : const Color(0xFFE6E2DA);
 
-  Color get ink => dark ? const Color(0xFFF1F5F9) : C.n900;
-  Color get ink2 => dark ? const Color(0xFF94A3B8) : C.n600;
+  Color get ink => dark ? const Color(0xFFF3F4F6) : const Color(0xFF15171C);
+  Color get ink2 => dark ? const Color(0xFFA3ABB8) : const Color(0xFF4F5562);
 
   /// The muted caption ink. Hand-solved to clear 4.5:1 on [card2], the darkest
   /// (light theme) / lightest (dark theme) surface it can sit on — so it is
   /// legible on every surface, not just the one it was eyeballed against.
   /// The values it replaces measured 4.34:1 and 3.21:1 respectively.
-  Color get ink3 => dark ? const Color(0xFF7F8DA0) : const Color(0xFF627188);
+  Color get ink3 => dark ? const Color(0xFF8A94A5) : const Color(0xFF5E6470);
 
   /// The ink that goes on top of a [fill]. White by construction — [fill]
   /// darkens the accent until white clears AA on it.
@@ -186,20 +186,15 @@ class P {
 
   List<BoxShadow> el(int level) {
     if (level <= 0) return const [];
-    if (dark) {
-      return [
-        BoxShadow(
-          color: const Color(0xFF000000).withValues(alpha: .32 + level * .06),
-          blurRadius: 6.0 * level,
-          offset: Offset(0, level.toDouble()),
-        ),
-      ];
-    }
+    // Calm, flat surfaces: depth comes from tone, not drop shadows. Dark
+    // cards sit on a near-black page and need none; light cards get one soft,
+    // wide shadow so white reads against the warm page.
+    if (dark) return const [];
     return [
       BoxShadow(
-        color: C.n900.withValues(alpha: .04 + level * .015),
-        blurRadius: 5.0 * level,
-        offset: Offset(0, level * 1.2),
+        color: C.n900.withValues(alpha: .025 + level * .01),
+        blurRadius: 14.0 * level,
+        offset: Offset(0, level * 2.0),
       ),
     ];
   }
@@ -273,8 +268,8 @@ class F {
       fontFamilyFallback: _fb,
       fontSize: 28,
       height: 34 / 28,
-      fontWeight: FontWeight.w700,
-      letterSpacing: -.5);
+      fontWeight: FontWeight.w600,
+      letterSpacing: -.7);
   static const t2 = TextStyle(
       fontFamily: _f,
       fontFamilyFallback: _fb,
@@ -312,16 +307,16 @@ class F {
       fontFamilyFallback: _fb,
       fontSize: 48,
       height: 1,
-      fontWeight: FontWeight.w700,
-      letterSpacing: -1.8,
+      fontWeight: FontWeight.w500,
+      letterSpacing: -2.0,
       fontFeatures: _tab);
   static const n34 = TextStyle(
       fontFamily: _f,
       fontFamilyFallback: _fb,
       fontSize: 34,
       height: 1,
-      fontWeight: FontWeight.w700,
-      letterSpacing: -1.2,
+      fontWeight: FontWeight.w500,
+      letterSpacing: -1.3,
       fontFeatures: _tab);
   static const n24 = TextStyle(
       fontFamily: _f,

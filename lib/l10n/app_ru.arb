@@ -5844,7 +5844,7 @@
   "devicesWornUnknown": "Неизвестно",
   "devicesWornOtherSub": "Карман или сумка. В таком положении браслет плохо распознаёт ходьбу.",
   "tabHome": "Главная",
-  "tabHealth": "Здоровье",
+  "tabHealth": "Моё здоровье",
   "tabNutrition": "Питание",
   "tabWorkout": "Тренировка",
   "tabWellness": "Самочувствие",
@@ -7368,7 +7368,7 @@
     }
   },
   "tabToday": "Сегодня",
-  "tabSleep": "Сон",
+  "tabSleep": "Показатели",
   "tabActivity": "Активность",
   "profileBandBattery": "Браслет {pct}%",
   "@profileBandBattery": {

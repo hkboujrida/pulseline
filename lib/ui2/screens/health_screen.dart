@@ -26,6 +26,7 @@ import '../profile/profile.dart' show ProfileAvatar;
 import '../profile/wearable_numbers.dart'
     show WearableCells, kHealthWearableRows;
 import '../ui2.dart';
+import 'monthly_report.dart';
 import 'advanced.dart';
 import 'ecg.dart' show EcgEntryCard, pairedIsMaverickOf;
 import 'findings_log.dart';
@@ -963,6 +964,12 @@ class _HealthScreenState extends State<HealthScreen> with RevisionReload {
                 : (l?.healthWellbeingAllSub ??
                     'Breathing, mood, the journal, habits and medication'),
             () => go(c, const WellnessScreen(initialTab: 0))),
+      ),
+      Section(
+        'Reports',
+        detailLinkRow(c, LucideIcons.calendarRange, 'Monthly report',
+            'Every average this month against last month, and the standout days',
+            () => go(c, const MonthlyReportScreen())),
       ),
 
       // THERE IS NO "BODY COMPOSITION" SECTION, AND THE NEXT PERSON SHOULD NOT

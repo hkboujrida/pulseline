@@ -2488,7 +2488,7 @@
     "description": "Step calibration wearing-location setting"
   },
   "tabHome": "Accueil",
-  "tabHealth": "Santé",
+  "tabHealth": "Ma santé",
   "tabNutrition": "Nutrition",
   "tabWorkout": "Entraînement",
   "tabWellness": "Bien-être",
@@ -2653,7 +2653,7 @@
   "sleepDetailStagedBy": "Phases selon {label}",
   "sleepDetailDeviceMissingStages": "{label} ne signale pas {stages} ; ce temps est compté dans ses autres phases.",
   "tabToday": "Aujourd'hui",
-  "tabSleep": "Sommeil",
+  "tabSleep": "Vitaux",
   "tabActivity": "Activité",
   "deviceUseScoresTitle": "Utiliser cet appareil pour les scores",
   "deviceUseWorkoutsTitle": "Utiliser pendant les entraînements",

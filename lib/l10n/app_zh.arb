@@ -2488,7 +2488,7 @@
     "description": "Step calibration wearing-location setting"
   },
   "tabHome": "首页",
-  "tabHealth": "健康",
+  "tabHealth": "我的健康",
   "tabNutrition": "营养",
   "tabWorkout": "锻炼",
   "tabWellness": "身心",
@@ -2653,7 +2653,7 @@
   "sleepDetailStagedBy": "由 {label} 分期",
   "sleepDetailDeviceMissingStages": "{label} 不报告{stages}；这段时间计入它的其他阶段。",
   "tabToday": "今天",
-  "tabSleep": "睡眠",
+  "tabSleep": "体征",
   "tabActivity": "活动",
   "deviceUseScoresTitle": "用此设备计算评分",
   "deviceUseWorkoutsTitle": "在锻炼时使用",

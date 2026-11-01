@@ -2488,7 +2488,7 @@
     "description": "Step calibration wearing-location setting"
   },
   "tabHome": "होम",
-  "tabHealth": "स्वास्थ्य",
+  "tabHealth": "मेरा स्वास्थ्य",
   "tabNutrition": "पोषण",
   "tabWorkout": "वर्कआउट",
   "tabWellness": "वेलनेस",
@@ -2653,7 +2653,7 @@
   "sleepDetailStagedBy": "{label} द्वारा चरण",
   "sleepDetailDeviceMissingStages": "{label} {stages} नहीं बताता; वह समय उसके दूसरे चरणों में गिना जाता है।",
   "tabToday": "आज",
-  "tabSleep": "नींद",
+  "tabSleep": "वाइटल्स",
   "tabActivity": "गतिविधि",
   "deviceUseScoresTitle": "स्कोर के लिए यह डिवाइस इस्तेमाल करें",
   "deviceUseWorkoutsTitle": "वर्कआउट के दौरान इस्तेमाल करें",

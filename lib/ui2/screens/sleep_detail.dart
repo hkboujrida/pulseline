@@ -448,13 +448,22 @@ class SleepDetail extends StatefulWidget {
   /// back to two weeks ago it read as that night's advice.
   final List<Widget> todayFooter;
 
+  /// Embedded only: replaces the tab header's title, and builds content that
+  /// sits between the header and the night, for the night on screen (null
+  /// while nothing has loaded). The Vitals tab puts last night's readiness and
+  /// vitals here so stepping back a night steps them too.
+  final String? embeddedTitle;
+  final Widget Function(String? day)? lead;
+
   const SleepDetail(
       {super.key,
       this.data,
       this.day,
       this.embedded = false,
       this.footer = const [],
-      this.todayFooter = const []});
+      this.todayFooter = const [],
+      this.embeddedTitle,
+      this.lead});
 
   @override
   State<SleepDetail> createState() => _SleepDetailState();
@@ -480,13 +489,15 @@ class _SleepDetailState extends State<SleepDetail> with RevisionReload {
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(S.x4, S.x4, S.x4, S.x16),
         children: [
-          ScreenTitle(title,
+          ScreenTitle(widget.embeddedTitle ?? title,
               trailing: const ProfileAvatar(accent: C.domSleep)),
           if (sub.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(left: S.x1, bottom: S.x2),
               child: Text(sub, style: F.over.copyWith(color: p.ink3)),
             ),
+          if (widget.lead != null && !_failed)
+            widget.lead!(_d?.day ?? _day),
           ...body,
           // Not under a read error: `_d` may still be the latest night while
           // the asked-for one failed.

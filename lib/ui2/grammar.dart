@@ -251,7 +251,12 @@ class Surface extends StatelessWidget {
         padding: pad,
         decoration: BoxDecoration(
           color: color ?? p.card,
-          borderRadius: R.rLg,
+          borderRadius: R.rXl,
+          // A hairline instead of a shadow in dark mode: the card's edge is
+          // drawn by tone, which reads on OLED where a black shadow cannot.
+          border: p.dark && color == null && elevation > 0
+              ? Border.all(color: p.line)
+              : null,
           boxShadow: p.el(elevation),
         ),
         child: child,
@@ -284,7 +289,7 @@ class Section extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(S.x1, S.x5, S.x1, S.x2),
+          padding: const EdgeInsets.fromLTRB(S.x1, S.x8, S.x1, S.x3),
           child: Row(
             // spaceBetween owns the gap, so the action sits on the right edge
             // however short the title is. Previously the title was Expanded
@@ -2067,13 +2072,13 @@ class ScreenTitle extends StatelessWidget {
   Widget build(BuildContext c) {
     final p = P.of(c);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(S.x1, S.x2, S.x1, S.x3),
+      padding: const EdgeInsets.fromLTRB(S.x1, S.x4, S.x1, S.x4),
       child: Row(
         children: [
           Expanded(
             child: Text(
               title,
-              style: F.t1.copyWith(color: p.ink),
+              style: F.display.copyWith(color: p.ink),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
