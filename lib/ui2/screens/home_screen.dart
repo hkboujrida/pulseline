@@ -2173,7 +2173,7 @@ class _HomeScreenState extends State<HomeScreen> with RevisionReload {
           }),
         // Pulseline: the live heart rate and band state, under the headline,
         // on today only, whether or not there is a readiness score yet.
-        if (isToday) Section('Right now', const LiveNow()),
+        if (isToday) LiveNow(strain: d.strain.value?.toDouble()),
         if (HeroScore.has(d)) ...[
           const SizedBox(height: S.x5),
           TodayFeed(d: d, onOpen: (k) => _openHero(c, k, isToday)),

@@ -3557,6 +3557,10 @@ class AppState extends ChangeNotifier {
     if ((breathingActive || breathingWindowOpen) && isRrBearing) {
       _breathingController.tapFrame(hex);
     }
+    // Pulseline: the "HRV right now" spot check buffers the same R-R frames.
+    if (_spotActive && isRrBearing && _spotFrames.length < 8000) {
+      _spotFrames.add(hex);
+    }
     // LIVE STEP COUNTER. Gen4: dedicated 0x33 IMU (~10 frames/s × 10 samples)
     // is preferred; full R10 (0x2B) is only a fallback when 0x33 isn't flowing.
     // Gen5 Maverick: live IMU is 0x2B (rec 0x15, 100 Hz planar) — see
@@ -3744,6 +3748,48 @@ class AppState extends ChangeNotifier {
   /// the wearer is trying to change.
   int get liveStrapRawSteps => _liveRaw;
 
+  // ── Pulseline live extras ────────────────────────────────────────────────
+  double? _enmoEwma;
+  int? _enmoAtMs;
+
+  /// Smoothed wrist movement (ENMO, g) from the live motion stream, or null
+  /// when no motion frame arrived in the last 15 s (stream off, band away).
+  double? get liveMovementG {
+    final at = _enmoAtMs;
+    if (at == null || _enmoEwma == null) return null;
+    if (DateTime.now().millisecondsSinceEpoch - at > 15000) return null;
+    return _enmoEwma;
+  }
+
+  bool _spotActive = false;
+  final List<String> _spotFrames = [];
+  bool get hrvSpotCheckActive => _spotActive;
+
+  /// Sit still for [seconds] and measure HRV from the live beat timing, with
+  /// the same estimator the breathing sessions use. Returns the repository's
+  /// spot-check map (`ok`, `rmssd`, `mean_hr`, `n_beats`), or null when there
+  /// is no band or database. Holds the live HR stream for its own duration.
+  Future<Map<String, dynamic>?> runHrvSpotCheck({int seconds = 60}) async {
+    final r = repo;
+    if (r == null || !isConnected || _spotActive) return null;
+    _spotActive = true;
+    _spotFrames.clear();
+    retainLiveHrView();
+    notifyListeners();
+    try {
+      await Future<void>.delayed(Duration(seconds: seconds));
+      final frames = List<String>.from(_spotFrames);
+      return await r.spotCheck(frames);
+    } catch (_) {
+      return {'ok': false};
+    } finally {
+      _spotActive = false;
+      _spotFrames.clear();
+      releaseLiveHrView();
+      notifyListeners();
+    }
+  }
+
   // ── the two safety gates on this tier — see live_step_runs.dart ────────────
   /// Phone-clock instant the current chunk's first sample arrived AFTER, i.e.
   /// the previous frame's arrival. The span from here to the frame that
@@ -3825,6 +3871,11 @@ class AppState extends ChangeNotifier {
       magSum += m;
     }
     final e = (magSum / mags.length) - 1.0;
+    // Pulseline: a ~10 s smoothed ENMO for the live "moving or still" chip.
+    // Frames arrive ~10/s, so α = 0.01 is a time constant of ~10 s.
+    final enmo = e < 0 ? 0.0 : e;
+    _enmoEwma = _enmoEwma == null ? enmo : _enmoEwma! * .99 + enmo * .01;
+    _enmoAtMs = nowMs;
 
     // GATE 1 — gait activities only. See kGaitStepTypeKeys. No active session
     // is countable (passive wear is the case the ladder was built for); a
