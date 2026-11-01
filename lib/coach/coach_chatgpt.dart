@@ -38,7 +38,7 @@ const _tokenUrl = '$kChatGptIssuer/api/accounts/oauth/token';
 const _revokeUrl = '$kChatGptIssuer/api/accounts/oauth/revoke';
 const _scopes =
     'openid profile email offline_access resource.invoke $kChatGptPlanScope';
-const _agentName = 'OpenStrap Edge';
+const _agentName = 'Pulseline';
 
 /// True for the iOS/macOS errSecDuplicateItem shape the plugin surfaces when
 /// its own check-then-act (containsKey -> update, else add) still lands on
@@ -185,7 +185,7 @@ String chatGptErrorMessage(int? status, String? code, String? detail) {
           '${detail == null ? '' : ': $detail'}';
     case 'subscription_sharing_invalid_user':
       return 'ChatGPT didn’t accept this sign-in. If you disconnected '
-          'OpenStrap in ChatGPT settings, sign in again.';
+          'Pulseline in ChatGPT settings, sign in again.';
   }
   if (status == 401) {
     return 'ChatGPT didn’t accept this sign-in. Sign in again from AI settings.';
@@ -265,7 +265,7 @@ Map<String, dynamic> chatGptRequest(Map<String, dynamic> body) {
           {
             'type': 'namespace',
             'name': kChatGptToolNamespace,
-            'description': 'Read and present this person\'s OpenStrap health data.',
+            'description': 'Read and present this person\'s Pulseline health data.',
             'tools': functions,
           },
         ...others,
@@ -614,7 +614,7 @@ class ChatGptAuth extends ChangeNotifier {
         ..write(ours
             ? '<!doctype html><meta name="viewport" content="width=device-width">'
                 '<p style="font:16px system-ui;margin:2em">Done. You can close '
-                'this page and go back to OpenStrap.</p>'
+                'this page and go back to Pulseline.</p>'
             : 'Bad request');
       await req.response.close();
       if (ours) return q;

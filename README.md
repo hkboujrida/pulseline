@@ -1,77 +1,55 @@
-<img width="1774" height="887" alt="OpenStrap Edge" src="https://github.com/user-attachments/assets/66653a25-ac97-4f8c-8be1-6c9fceeaf08b" />
+# Pulseline
 
-A health app for your wearables. No subscription, no fees, private by default.
+A health app for your WHOOP band: recovery, strain, sleep and overnight vitals, computed on
+your phone. No subscription, no account, nothing uploaded.
 
-<a href="https://trendshift.io/repositories/51733?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-51733" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/51733" alt="OpenStrap%2Fedge | Trendshift" width="250" height="55"/></a>
+**Pulseline is based on [OpenStrap](https://github.com/OpenStrap)** (the Edge app, its
+protocol decoder and analytics). It is an independent fork with a redesigned interface and
+extra features. It is not made, endorsed or supported by the OpenStrap project; please
+don't take Pulseline issues to OpenStrap's channels. Report them here instead.
 
-[![Download for Android](https://img.shields.io/badge/Android-Download%20APK-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/OpenStrap/edge/releases/latest)
-[![Download on TestFlight](https://img.shields.io/badge/iOS-TestFlight-0D96F6?style=for-the-badge&logo=apple&logoColor=white)](https://testflight.apple.com/join/2BVSwq65)
+## Download
 
-As featured in [Hackaday](https://hackaday.com/2026/07/15/making-a-locked-down-wearable-work-without-a-subscription/) and [Adafruit](https://blog.adafruit.com/2026/07/15/openstrap-edge-makes-a-whoop-4-0-band-useful-without-a-subscription/).
+Android: grab the APK from [Releases](../../releases/latest).
 
-| <img src="screenshots/today.png" width="160" alt="Today"> | <img src="screenshots/health.png" width="160" alt="Health"> | <img src="screenshots/sleep.png" width="160" alt="Sleep"> | <img src="screenshots/heart-rate.png" width="160" alt="Resting heart rate"> | <img src="screenshots/workout.png" width="160" alt="Workout"> |
-|:--:|:--:|:--:|:--:|:--:|
-| Today | Health | Sleep | Heart rate | Workout |
+## What's different from upstream Edge
 
-## Devices
+- **Redesign:** calmer near-black / warm-white surfaces, flat cards, lighter numerals.
+- **Tabs:** Today · Vitals · Activity · My Health.
+- **Vitals:** readiness shown against *your own* usual level (centred scale), and overnight
+  resting HR, HRV, breathing rate and skin temperature against your usual range, with
+  anything outside it flagged.
+- **Training-load forecast:** the next 7 days of fitness, fatigue and form under
+  rest / keep going / push.
+- **Strength progress:** personal records, estimated 1RM (Epley) and weekly volume, from
+  the sets you log in a strength workout.
+- **Monthly report:** this month against last month, with your standout days.
+- **"More for you"** on Today: journal, mind, monthly report, strength, body clock and
+  sleep plan one tap away.
 
-**Supported:** WHOOP 4.0, 5.0, MG.
+## Moving from OpenStrap Edge
 
-**Being built:** Oura Ring, Garmin, Pebble, Colmi, Ultrahuman, Mi Band and more.
+Pulseline installs alongside Edge (different app id). In Edge: Profile → Data → *Export
+the database*. In Pulseline: Profile → Data → *Import a file*. Then uninstall Edge so the
+two apps don't compete for the band's Bluetooth connection. Don't open the band maker's
+own app with the band afterwards: a firmware update could change the data format.
 
-Full feature list: [docs/FEATURES.md](docs/FEATURES.md).
+## Building
 
-## Support
+Flutter 3.41.6, JDK 17, Android SDK 36:
 
-OpenStrap has no company, no subscription and no paywall behind it. If it's useful to
-you, a tip helps keep it going.
-
-**Bitcoin**
-
+```bash
+flutter pub get
+flutter build apk --release
 ```
-bc1qvtcch38dcwp967ar764uu6eetw7tf907844wfq
-```
 
-**EVM** (Ethereum, Base, Arbitrum, Optimism, Polygon)
+Upstream's development guide still applies: [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+The original README is kept as [README.upstream.md](README.upstream.md).
 
-```
-0x8310C89393366b7eBCD47ABa82e1dfB5ECeFFbD9
-```
+## License and trademarks
 
-## Community
+AGPL-3.0, same as upstream (see [LICENSE](LICENSE) and [NOTICE](NOTICE)). "OpenStrap" is
+the OpenStrap project's name; this fork uses it only to credit where the code comes from.
+WHOOP is a trademark of its owner; Pulseline is not affiliated with WHOOP.
 
-[Discord](https://discord.gg/dUXds5MWkd) · [Reddit](https://www.reddit.com/r/OpenStrap/)
-
-## Guides
-
-- [Development: build and run from source](docs/DEVELOPMENT.md)
-- [Features](docs/FEATURES.md)
-- [iOS installation](guides/IOS_INSTALLATION.md)
-- [iOS sideload](guides/IOS_SIDELOAD.md)
-- [iOS Shortcuts](guides/IOS_SHORTCUTS.md)
-- [Apple Watch setup](guides/WATCH_SETUP.md)
-- [AI coach](guides/AI_COACH.md)
-- [Tasker integration](guides/TASKER_INTEGRATION.md)
-- [Buzz meanings](guides/BUZZ_MEANINGS.md)
-- [Writing a device adapter](docs/ADAPTERS.md)
-
-## Contributing
-
-Bug reports from real devices are the most useful thing you can send. PRs are welcome;
-read [CONTRIBUTING.md](CONTRIBUTING.md) first, which covers which repo a change belongs
-in. Security issues go through
-[SECURITY.md](SECURITY.md).
-
-## Privacy
-
-Everything stays on your phone unless you opt in. Details in [PRIVACY.md](PRIVACY.md).
-
-## Disclaimer
-
-OpenStrap is independent and not affiliated with or endorsed by WHOOP, Oura, Garmin or
-any device maker. Product names are trademarks of their owners and are used only to
-describe compatibility.
-
-## License
-
-AGPL-3.0. See [LICENSE](LICENSE). The OpenStrap name and logo: [TRADEMARKS.md](TRADEMARKS.md).
+Not a medical device. Metrics are approximations from published research.

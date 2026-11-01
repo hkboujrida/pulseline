@@ -2986,7 +2986,7 @@ class LocalDb {
   /// idempotent and an edit made in the source app lands as an update.
   /// Readings taken by a device that is CLEARED to take them — a BP cuff, a
   /// CGM, a thermometer. `source` is NOT NULL because the whole value of these
-  /// rows is that OpenStrap did not measure them.
+  /// rows is that Pulseline did not measure them.
   ///
   /// READ-ONLY INPUTS TO DISPLAY. NEVER TRAINING TARGETS. the moment a cuff
   /// series and a wrist PPG series live in one database, the obvious next idea
@@ -11411,7 +11411,7 @@ class LocalDb {
     return {for (final r in rows) r['date'] as String};
   }
 
-  /// Import another device's exported OpenStrap DB ([path], from [exportCopy] +
+  /// Import another device's exported Pulseline DB ([path], from [exportCopy] +
   /// share) by MERGING its rows into this one (INSERT-OR-REPLACE). Covers derived
   /// results, the metric series, user data, and the raw ledger so the receiving
   /// device has the full history (and can re-derive). Same app ⇒ same schema; a
@@ -11440,7 +11440,7 @@ class LocalDb {
       if (inflated == null ||
           await sniffFile(inflated) != ImportContainer.sqlite) {
         throw const ImportFormatException(
-          'That file unpacked to something that is not an OpenStrap database.',
+          'That file unpacked to something that is not an OpenStrap or Pulseline database.',
         );
       }
       return await _mergeFromDbFile(inflated);

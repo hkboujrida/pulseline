@@ -145,7 +145,7 @@ class _DataScreenState extends State<DataScreen> {
           : (l?.dataNothingToExportYet ?? 'Nothing to export yet.', false);
     }
     await Share.shareXFiles([for (final p in res.paths) XFile(p)],
-        subject: 'OpenStrap export', sharePositionOrigin: origin);
+        subject: 'Pulseline export', sharePositionOrigin: origin);
     final n = res.paths.length;
     final failed = res.hasFailures
         ? ' ${l?.dataSetsFailed(res.failed.length, res.failed.join(', ')) ?? '${res.failed.length} set(s) failed: ${res.failed.join(', ')}.'}'
@@ -190,7 +190,7 @@ class _DataScreenState extends State<DataScreen> {
       return (l?.dataNothingToExportYet ?? 'Nothing to export yet.', false);
     }
     await Share.shareXFiles([XFile(path)],
-        subject: 'OpenStrap heart rate', sharePositionOrigin: origin);
+        subject: 'Pulseline heart rate', sharePositionOrigin: origin);
     return (l?.dataFilesShared(1) ?? '1 file shared.', false);
   }
 
@@ -200,7 +200,7 @@ class _DataScreenState extends State<DataScreen> {
     // VACUUM INTO — a transactionally consistent snapshot, not a file copy.
     final path = await _manualExportCopy();
     await Share.shareXFiles([XFile(path)],
-        subject: 'OpenStrap database', sharePositionOrigin: origin);
+        subject: 'Pulseline database', sharePositionOrigin: origin);
     return (
       l?.dataDatabaseShared ?? 'Database shared. It is the complete copy.',
       false
@@ -247,7 +247,7 @@ class _DataScreenState extends State<DataScreen> {
       } catch (_) {}
     }
     await Share.shareXFiles([XFile(dest)],
-        subject: 'OpenStrap encrypted backup', sharePositionOrigin: origin);
+        subject: 'Pulseline encrypted backup', sharePositionOrigin: origin);
     return (
       l?.dataEncryptedBackupShared ??
           'Encrypted backup shared. Without that passphrase nobody can open it — '
@@ -557,7 +557,7 @@ class _DataScreenState extends State<DataScreen> {
                   SetRow(LucideIcons.upload, C.orange,
                       l?.dataImportFile ?? 'Import a file',
                       sub: l?.dataImportFileSub ??
-                          'An OpenStrap backup, a journal CSV, a raw sensor export or a vendor CSV. Days the band already measured are never overwritten',
+                          'An OpenStrap or Pulseline backup, a journal CSV, a raw sensor export or a vendor CSV. Days the band already measured are never overwritten',
                       onTap: _busy ? null : () => _run(() => _import(app))),
                   // Progressive disclosure: two health-store reads, each with
                   // its own consent and its own ceiling, behind one row rather

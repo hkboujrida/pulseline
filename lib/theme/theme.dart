@@ -1,4 +1,4 @@
-// OpenStrap theme — TWO type voices, ember-coral on paper (day) or char
+// Pulseline theme — TWO type voices, ember-coral on paper (day) or char
 // (night). `AppText` is the type scale; every numeric/metric style carries
 // tabular figures so big numbers align and count-ups don't jitter. Text colours
 // resolve through the live `AppColors` getters, so the type scale follows the

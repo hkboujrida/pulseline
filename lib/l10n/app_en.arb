@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "OpenStrap",
+  "appTitle": "Pulseline",
   "@appTitle": {
     "description": "App name shown in the OS task switcher / MaterialApp title."
   },
@@ -527,7 +527,7 @@
   "@dataImportFile": {
     "description": "Row title."
   },
-  "dataImportFileSub": "An OpenStrap backup, a journal CSV, a raw sensor export or a vendor CSV. Days the band already measured are never overwritten",
+  "dataImportFileSub": "An OpenStrap or Pulseline backup, a journal CSV, a raw sensor export or a vendor CSV. Days the band already measured are never overwritten",
   "@dataImportFileSub": {
     "description": "Row sub."
   },
@@ -1414,7 +1414,7 @@
   "@welcomeBringMyHistoryFirst": {
     "description": "Button label: idle."
   },
-  "welcomeImportFooterNote": "A sensor export, an OpenStrap backup or a vendor CSV. Imported days count toward your usual range, and never overwrite a day the band measured.",
+  "welcomeImportFooterNote": "A sensor export, an OpenStrap or Pulseline backup or a vendor CSV. Imported days count toward your usual range, and never overwrite a day the band measured.",
   "@welcomeImportFooterNote": {
     "description": "Footer note about imports."
   },
@@ -4486,7 +4486,7 @@
   "@coachNotSetUp": {
     "description": "Coach screen: subtitle shown wherever the coach has no model configured yet"
   },
-  "coachNotSetUpBody": "Pick a model on your own computer, or any OpenAI-compatible provider with your own key. Nothing goes through OpenStrap either way.",
+  "coachNotSetUpBody": "Pick a model on your own computer, or any OpenAI-compatible provider with your own key. Nothing goes through Pulseline either way.",
   "@coachNotSetUpBody": {
     "description": "Coach screen: body text explaining how to set up the coach and its privacy stance"
   },
@@ -9407,7 +9407,7 @@
       }
     }
   },
-  "workoutDeleteBodyOwn": "It disappears from OpenStrap. A copy in {storeName}, if there is one, stays where it is.",
+  "workoutDeleteBodyOwn": "It disappears from Pulseline. A copy in {storeName}, if there is one, stays where it is.",
   "@workoutDeleteBodyOwn": {
     "description": "Confirm-delete dialog body for a session this band recorded",
     "placeholders": {
@@ -9416,7 +9416,7 @@
       }
     }
   },
-  "workoutDeleteBodyImported": "It disappears from OpenStrap and will not be re-imported. The original in {storeName} stays.",
+  "workoutDeleteBodyImported": "It disappears from Pulseline and will not be re-imported. The original in {storeName} stays.",
   "@workoutDeleteBodyImported": {
     "description": "Confirm-delete dialog body for an imported session",
     "placeholders": {
@@ -11377,7 +11377,7 @@
   "@settingsResetPairingKeyWarning": {
     "description": "Warning after reset when a sensor pairing key could not be removed from secure storage"
   },
-  "settingsResetChatGptWarning": "App data deleted, but the ChatGPT sign-in may not be fully removed. Disconnect OpenStrap in ChatGPT settings to make sure its access is revoked. Deleting everything again only retries removing what is left on this device.",
+  "settingsResetChatGptWarning": "App data deleted, but the ChatGPT sign-in may not be fully removed. Disconnect Pulseline in ChatGPT settings to make sure its access is revoked. Deleting everything again only retries removing what is left on this device.",
   "@settingsResetChatGptWarning": {
     "description": "Warning after reset when the ChatGPT sign-in may not have been revoked or removed from secure storage"
   },
@@ -11981,11 +11981,11 @@
   "@bandStatusBluetoothDeniedTitle": {
     "description": "BandStatus card title: app-level Bluetooth permission denied"
   },
-  "bandStatusBluetoothDeniedReason": "The phone isn’t letting OpenStrap use Bluetooth, so nothing can connect. Allow Bluetooth for OpenStrap in your phone’s settings.",
+  "bandStatusBluetoothDeniedReason": "The phone isn’t letting Pulseline use Bluetooth, so nothing can connect. Allow Bluetooth for Pulseline in your phone’s settings.",
   "@bandStatusBluetoothDeniedReason": {
     "description": "BandStatus card body: app-level Bluetooth permission denied"
   },
-  "bandStatusBluetoothDeniedFix": "Open Settings → OpenStrap and allow Bluetooth",
+  "bandStatusBluetoothDeniedFix": "Open Settings → Pulseline and allow Bluetooth",
   "@bandStatusBluetoothDeniedFix": {
     "description": "BandStatus fix action: app-level Bluetooth permission denied"
   },
@@ -12262,7 +12262,7 @@
   "@nudgeDiscordTitle": {
     "description": "Title of the Home nudge card inviting the user to join Discord."
   },
-  "nudgeDiscordBody": "Other OpenStrap users hang out on Discord — bugs, ideas, and people running the same band as you.",
+  "nudgeDiscordBody": "Other Pulseline users hang out on Discord — bugs, ideas, and people running the same band as you.",
   "@nudgeDiscordBody": {
     "description": "Body of the Home nudge card inviting the user to join Discord."
   },
@@ -12270,7 +12270,7 @@
   "@nudgeDiscordCta": {
     "description": "CTA button label of the Home nudge card inviting the user to join Discord."
   },
-  "nudgeDonateTitle": "Enjoying OpenStrap?",
+  "nudgeDonateTitle": "Enjoying Pulseline?",
   "@nudgeDonateTitle": {
     "description": "Title of the Home nudge card inviting the user to sponsor the project."
   },
@@ -13379,7 +13379,7 @@
   "@supplementALowConfidenceOverlayA9fbabe": {
     "description": "Presentation-only text for existing interface, exports or notifications."
   },
-  "supplementAMinuteOfNotesTonightac2cf6": "A minute of notes tonight teaches OpenStrap what actually moves your recovery.",
+  "supplementAMinuteOfNotesTonightac2cf6": "A minute of notes tonight teaches Pulseline what actually moves your recovery.",
   "@supplementAMinuteOfNotesTonightac2cf6": {
     "description": "Presentation-only text for existing interface, exports or notifications."
   },
@@ -14243,7 +14243,7 @@
   "@supplementG54fd17": {
     "description": "Presentation-only text for existing interface, exports or notifications."
   },
-  "supplementIOSCanOnlyShowThe2139b2": "iOS shows the pairing sheet only before the app has used Bluetooth. Close OpenStrap completely, then reopen it to see the sheet.",
+  "supplementIOSCanOnlyShowThe2139b2": "iOS shows the pairing sheet only before the app has used Bluetooth. Close Pulseline completely, then reopen it to see the sheet.",
   "@supplementIOSCanOnlyShowThe2139b2": {
     "description": "Presentation-only text for existing interface, exports or notifications."
   },
@@ -15100,9 +15100,9 @@
   "@devicePickerBlurbMiscale2": {
     "description": "Device picker blurb under this device category."
   },
-  "iosUninstallUnpairsWarning": "On iOS, deleting OpenStrap also unpairs every band and sensor paired here from the phone, so other apps, including the maker's own, lose them too.",
+  "iosUninstallUnpairsWarning": "On iOS, deleting Pulseline also unpairs every band and sensor paired here from the phone, so other apps, including the maker's own, lose them too.",
   "@iosUninstallUnpairsWarning": {
-    "description": "iOS only: AccessorySetupKit pairings are removed by iOS for all apps when OpenStrap is deleted."
+    "description": "iOS only: AccessorySetupKit pairings are removed by iOS for all apps when Pulseline is deleted."
   },
   "logFoodEditTitle": "Edit this entry",
   "@logFoodEditTitle": {

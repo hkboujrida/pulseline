@@ -222,7 +222,7 @@ void main() {
       });
       final q = first.queryParameters;
       expect(q['client_id'], 'dynamic_agent_client');
-      expect(q['agent_name_hint'], 'OpenStrap Edge');
+      expect(q['agent_name_hint'], 'Pulseline');
       expect(q['ext_agent_host_id'], startsWith('urn:uuid:'));
       expect(q['scope']!.split(' '), containsAll(['offline_access', 'resource.invoke', kChatGptPlanScope]));
       expect(q['resource'], kChatGptApiBase);

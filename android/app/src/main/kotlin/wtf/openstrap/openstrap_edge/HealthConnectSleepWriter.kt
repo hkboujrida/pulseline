@@ -158,7 +158,7 @@ object HealthConnectSleepWriter {
             startZoneOffset = zoneRules.getOffset(start),
             endTime = end,
             endZoneOffset = zoneRules.getOffset(end),
-            title = "OpenStrap sleep",
+            title = "Pulseline sleep",
             stages = stages,
             metadata = Metadata(
                 recordingMethod = Metadata.RECORDING_METHOD_AUTOMATICALLY_RECORDED,

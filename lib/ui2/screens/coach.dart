@@ -542,7 +542,7 @@ class _CoachScreenState extends State<CoachScreen> {
           StatusCard(
             l?.coachNotSetUpTitle ?? 'The coach is not set up',
             l?.coachNotSetUpBody ??
-                'Pick a model on your own computer, or any OpenAI-compatible provider with your own key. Nothing goes through OpenStrap either way.',
+                'Pick a model on your own computer, or any OpenAI-compatible provider with your own key. Nothing goes through Pulseline either way.',
             fix: l?.coachChooseModelFix ?? 'Choose a model',
             icon: LucideIcons.sparkles,
             onFix: () => go(c, const CoachSetup()),
@@ -1182,7 +1182,7 @@ class _CoachSetupState extends State<CoachSetup> {
       _msg = revoked
           ? uiText(context, 'Signed out of ChatGPT.')
           : uiText(context,
-              'Signed out here, but ChatGPT did not confirm it. You can also disconnect OpenStrap in ChatGPT settings.');
+              'Signed out here, but ChatGPT did not confirm it. You can also disconnect Pulseline in ChatGPT settings.');
     });
   }
 
@@ -1334,7 +1334,7 @@ class _CoachSetupState extends State<CoachSetup> {
       const SizedBox(height: S.x2),
       Text(
         uiText(c,
-            'Complete eligible AI requests in this app with usage included in your ChatGPT plan or credits balance. OpenStrap never charges for this.'),
+            'Complete eligible AI requests in this app with usage included in your ChatGPT plan or credits balance. Pulseline never charges for this.'),
         style: F.cap.copyWith(color: p.ink3, height: 1.5),
       ),
       const SizedBox(height: S.x4),

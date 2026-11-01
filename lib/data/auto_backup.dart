@@ -103,7 +103,7 @@ enum BackupCadence {
 
 /// Folder name. Spelled out so it is obvious what it is when someone finds it
 /// in Files or a file manager.
-const kBackupDirName = 'OpenStrap Backups';
+const kBackupDirName = 'Pulseline Backups';
 
 /// How many backups are kept. Enough to survive noticing a problem a few days
 /// late, few enough that the folder does not grow without bound — each file is

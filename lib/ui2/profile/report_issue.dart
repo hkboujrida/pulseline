@@ -153,7 +153,7 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
       await pruneSharedReports(r.zip.parent, current: r.zip);
       _setStep(l.reportStageSharing);
       await Share.shareXFiles([XFile(r.zip.path)],
-          subject: 'OpenStrap issue report', sharePositionOrigin: origin);
+          subject: 'Pulseline issue report', sharePositionOrigin: origin);
     } catch (e) {
       if (mounted) setState(() => _error = e is ReportSendError ? e.status : -2);
     } finally {

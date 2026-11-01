@@ -102,7 +102,7 @@ List<AiReminderSlot> aiReminderPlan(
     out.add(AiReminderSlot(
       id: NotificationService.idJournalLog,
       title: 'About your bedtime — log your day',
-      body: 'A minute of notes tonight teaches OpenStrap what actually moves '
+      body: 'A minute of notes tonight teaches Pulseline what actually moves '
           'your recovery.',
       route: kRouteJournalCompose,
       hour: m ~/ 60,

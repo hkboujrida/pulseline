@@ -714,7 +714,7 @@ class AppState extends ChangeNotifier {
     return res.days;
   }
 
-  /// Another device's exported OpenStrap DB (.db) → merge into the local store.
+  /// Another device's exported Pulseline DB (.db) → merge into the local store.
   /// Returns total rows copied across tables.
   /// Set when an import landed its rows but the rollup rebuild after it threw.
   /// The days are in the database and the summaries built from them are not, so
