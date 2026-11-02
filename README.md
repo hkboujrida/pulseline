@@ -12,20 +12,41 @@ don't take Pulseline issues to OpenStrap's channels. Report them here instead.
 
 Android: grab the APK from [Releases](../../releases/latest).
 
-## What's different from upstream Edge
+## What's in it
 
-- **Redesign:** calmer near-black / warm-white surfaces, flat cards, lighter numerals.
-- **Tabs:** Today · Vitals · Activity · My Health.
-- **Vitals:** readiness shown against *your own* usual level (centred scale), and overnight
-  resting HR, HRV, breathing rate and skin temperature against your usual range, with
-  anything outside it flagged.
-- **Training-load forecast:** the next 7 days of fitness, fatigue and form under
-  rest / keep going / push.
-- **Strength progress:** personal records, estimated 1RM (Epley) and weekly volume, from
-  the sets you log in a strength workout.
-- **Monthly report:** this month against last month, with your standout days.
-- **"More for you"** on Today: journal, mind, monthly report, strength, body clock and
-  sleep plan one tap away.
+**Four tabs, each with its own headline:**
+
+- **Today:** your readiness score in a large ring, then cards for Sleep (against the
+  sleep you need), Strain (with your target), Steps and Overnight vitals. Below them,
+  "More for you" shortcuts to the journal, mind, monthly report, strength, body clock
+  and sleep plan.
+- **Right now (on Today, on demand):** tap *Go live* for live heart rate, your current
+  heart-rate zone, whether you're still or moving, today's strain (refreshed every
+  10 minutes), a one-minute "HRV right now" measurement, and band connection, wear and
+  battery. It stops by itself after 15 minutes, when you switch tabs or when you leave
+  the app, to save battery.
+- **Vitals:** last night in a ring against your sleep need, with bed and wake times and
+  time in each stage; readiness against *your own* usual level; resting HR, HRV,
+  breathing rate and skin temperature against your usual range, with anything outside
+  it flagged; then the full night.
+- **Activity:** this week's workouts and how fresh or fatigued you are, the start
+  buttons, a 7-day training-load forecast (rest / keep going / push), and Strength
+  progress (personal records, estimated 1RM, weekly volume).
+- **My Health:** the last 30 days as four trend tiles (HRV, resting HR, sleep,
+  recovery) compared with the 30 days before, and a monthly report.
+
+Everything else from upstream Edge is still there: sleep staging, recovery, strain,
+stress, journal with correlation insights, cycle tracking, AI coach, smart alarm,
+Health Connect export and backups. See [docs/FEATURES.md](docs/FEATURES.md) and
+[CHANGELOG.md](CHANGELOG.md).
+
+### Good to know
+
+- **Usual ranges need history.** The Vitals comparisons need 14 nights of your own
+  data; trend tiles need 7 recorded days in the last 30. Until then they say they're
+  still learning instead of guessing.
+- **Live values are only what the band streams live:** heart rate, beat timing and
+  motion. HRV, recovery, sleep and skin temperature are computed from synced history.
 
 ## Moving from OpenStrap Edge
 

@@ -2,6 +2,22 @@
 
 Everything below is computed and stored on your phone.
 
+## Pulseline additions
+
+- **Right now (on demand):** live heart rate, heart-rate zone, movement, today's
+  strain (refreshed every 10 minutes), a one-minute HRV spot check, and band status.
+  Off by default; stops after 15 minutes or when you leave Today.
+- **Readiness against your usual:** last night's readiness on a scale centred on your
+  own typical night, with your usual range marked.
+- **Overnight vitals:** resting HR, HRV, breathing rate and relative skin temperature
+  against your usual range (14 nights of history), outliers flagged.
+- **Training-load forecast:** fitness, fatigue and form for the next 7 days under
+  rest / keep going / push, replaying the same Banister model the app already uses.
+- **Strength progress:** personal records, estimated 1RM (Epley, sets of 1–12 reps)
+  and weekly volume, from sets logged in strength workouts.
+- **Monthly report:** this month's averages against last month, with standout days.
+- **30-day trends:** HRV, resting HR, sleep and recovery against the previous 30 days.
+
 ## Devices
 
 - **WHOOP 4.0, 5.0 and MG:** full support. Every metric below is computed from these.
@@ -16,7 +32,7 @@ Everything below is computed and stored on your phone.
 ## Health
 
 Heart rate, HRV, sleep staging, recovery/readiness, strain, stress, an HRV spot-check,
-a VO2max estimate, and real-time breathing coherence.
+and real-time breathing coherence.
 
 Strain is scored against your own quiet waking heart rate, not a population constant,
 so a workout counts the same for a fit person with a low resting HR as for anyone else.
@@ -59,8 +75,8 @@ edit, and GPX export.
   background service, so the OS decides when sync tasks run. Android has no such limit.
 - Metrics are approximations based on published research. They are not medical-grade,
   not validated against a lab, and not a diagnosis.
-- Not on the App Store or Play Store yet. iOS is a public TestFlight beta; Android is an
-  APK from GitHub Releases.
+- Not on the App Store or Play Store. Pulseline is Android only, as an APK from
+  GitHub Releases.
 - WHOOP 5.0 and MG support is newer than 4.0's and has had less daily wear. Open an
   issue when something looks wrong.
 - Don't switch back and forth between this app and the device maker's app. A firmware
